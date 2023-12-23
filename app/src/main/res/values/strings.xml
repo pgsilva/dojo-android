@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Dojo</string>
+    <string name="title_github_explorer">GitHub Explorer</string>
+    <string name="label_description">Encontre detalhes sobre repositórios, usuários ou projetos do GitHub.</string>
+</resources>
