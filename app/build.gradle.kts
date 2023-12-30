@@ -7,6 +7,10 @@ android {
     namespace = "com.example.dojo"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.example.dojo"
         minSdk = 24

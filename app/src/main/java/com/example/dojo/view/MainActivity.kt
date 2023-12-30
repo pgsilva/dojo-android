@@ -5,16 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.dojo.R
 import com.example.dojo.dao.SearchItemsProvider
+import com.example.dojo.databinding.ActivityMainBinding
 import com.example.dojo.view.form.FormActivity
 import com.example.dojo.view.search.adapter.SearchListAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 
 
 class MainActivity : Activity() {
+
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     private lateinit var dao: SearchItemsProvider
     private lateinit var adapter: SearchListAdapter
@@ -22,9 +21,10 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Toast.makeText(this, "Hello Mr Morales", Toast.LENGTH_LONG).show()
-        setContentView(R.layout.activity_main)
-
         loadDependencies()
+
+        setContentView(binding.root)
+
         configureSearchPage()
         configureFloatButton()
     }
@@ -41,7 +41,7 @@ class MainActivity : Activity() {
 
 
     private fun configureFloatButton() {
-        findViewById<FloatingActionButton>(R.id.fb_add_item).let { fb ->
+        binding.fbAddItem.let { fb ->
             fb.setOnClickListener {
                 Intent(this, FormActivity::class.java).run {
                     startActivity(this)
@@ -51,11 +51,10 @@ class MainActivity : Activity() {
     }
 
     private fun configureSearchPage() {
-        findViewById<RecyclerView>(R.id.rv_search_items).let { rv ->
+        binding.rvSearchItems.let { rv ->
             rv.adapter = adapter
             rv.layoutManager = LinearLayoutManager(this)
         }
     }
-
 }
 

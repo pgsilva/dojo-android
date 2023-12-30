@@ -5,26 +5,26 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
-import com.example.dojo.R
 import com.example.dojo.dao.SearchItemsProvider
+import com.example.dojo.databinding.ActivityFormBinding
 import com.example.dojo.domain.search.SearchItem
 import com.example.dojo.domain.search.isNotValidURL
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 
 
 class FormActivity : Activity() {
 
+    private val binding by lazy { ActivityFormBinding.inflate(layoutInflater) }
+
     private lateinit var dao: SearchItemsProvider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_form)
-
         loadDependencies()
+
+        setContentView(binding.root)
+
         configureAvatarLoader()
         configureUpdateButton()
     }
@@ -34,7 +34,7 @@ class FormActivity : Activity() {
     }
 
     private fun configureUpdateButton() {
-        findViewById<Button>(R.id.bt_form_update).let { bt ->
+        binding.btFormUpdate.let { bt ->
             bt.setOnClickListener {
                 val (avatar, fullName, username, description) = loadEditTexts()
                 val item = SearchItem(
@@ -54,16 +54,16 @@ class FormActivity : Activity() {
     }
 
     private fun loadEditTexts(): List<EditText> {
-        val avatar = findViewById<EditText>(R.id.et_avatar_url)
-        val fullName = findViewById<EditText>(R.id.et_fullname)
-        val username = findViewById<EditText>(R.id.et_username)
-        val description = findViewById<EditText>(R.id.et_description)
+        val avatar = binding.etAvatarUrl
+        val fullName =binding.etFullname
+        val username = binding.etUsername
+        val description = binding.etDescription
 
         return listOf(avatar, fullName, username, description)
     }
 
     private fun configureAvatarLoader() {
-        val inputEditText = findViewById<EditText>(R.id.et_avatar_url)
+        val inputEditText = binding.etAvatarUrl
 
         inputEditText.addTextChangedListener(
             object : TextWatcher {
@@ -78,10 +78,9 @@ class FormActivity : Activity() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                 override fun afterTextChanged(s: Editable) {
-                    findViewById<ImageView>(R.id.iv_form_avatar).let { iv ->
-                        if(s.toString().isNotValidURL())
-
-                        Picasso.get().load(s.toString()).into(iv)
+                    binding.ivFormAvatar.let { iv ->
+                        if (s.toString().isNotValidURL())
+                            Picasso.get().load(s.toString()).into(iv)
                     }
                 }
             })
