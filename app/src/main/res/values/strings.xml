@@ -2,4 +2,8 @@
     <string name="app_name">Dojo</string>
     <string name="title_github_explorer">GitHub Explorer</string>
     <string name="label_description">Encontre detalhes sobre repositórios, usuários ou projetos do GitHub.</string>
+    <string name="hint_search_text_input_layout">Pesquise em todo o Github...</string>
+    <string name="default_tv_full_name">Paulo Guilherme</string>
+    <string name="default_tv_username">pgsilva</string>
+    <string name="default_tv_description">computer science student at USJT full stack developer at @itau 決してあきらめない genin since 98’s</string>
 </resources>
