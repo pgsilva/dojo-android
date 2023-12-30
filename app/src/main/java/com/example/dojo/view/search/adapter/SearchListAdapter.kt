@@ -25,8 +25,10 @@ class SearchListAdapter(
             val description = itemView.findViewById<TextView>(R.id.tv_description)
 
             Picasso.get().load(item.avatarUrl).into(avatar)
+
             fullName.text = item.fullName
             username.text = item.username
+            description.text = item.description
             description.text = item.description
 
         }

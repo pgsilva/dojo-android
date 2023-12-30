@@ -6,4 +6,10 @@
     <string name="default_tv_full_name">Paulo Guilherme</string>
     <string name="default_tv_username">pgsilva</string>
     <string name="default_tv_description">computer science student at USJT full stack developer at @itau, genin since 98’s</string>
+    <string name="title_activity_form">FormActivity</string>
+    <string name="default_hint_fullname">nome completo</string>
+    <string name="default_hint_avatar_url">URL avatar</string>
+    <string name="default_hint_username">username</string>
+    <string name="default_hint_description">resumo</string>
+    <string name="default_btn_update">Salvar</string>
 </resources>
