@@ -7,33 +7,36 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:theme="@style/Theme.Dojo"
-    tools:context=".MainActivity">
+    tools:context=".view.MainActivity">
 
     <SearchView
-        android:id="@+id/searchView"
+        android:id="@+id/sv_search_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:hint="@string/hint_search_text_input_layout"
         android:queryHint="@string/hint_search_text_input_layout"
-
+        android:paddingBottom="4dp"
         android:textColorHint="@color/design_default_color_primary"
+
         app:defaultQueryHint="@string/hint_search_text_input_layout"
         app:hintAnimationEnabled="false"
         app:hintEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
         app:layout_constraintVertical_bias="0.0"
+
         tools:layout_editor_absoluteX="-16dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search_items"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        tools:layout_editor_absoluteX="1dp"
-        tools:listitem="@layout/item_search_result"/>
+        app:layout_constraintTop_toBottomOf="@+id/sv_search_input"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp"
+        tools:listitem="@layout/item_search_result" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
