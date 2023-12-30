@@ -11,6 +11,7 @@ import android.widget.ImageView
 import com.example.dojo.R
 import com.example.dojo.dao.SearchItemsProvider
 import com.example.dojo.domain.search.SearchItem
+import com.example.dojo.domain.search.isNotValidURL
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 
@@ -43,13 +44,9 @@ class FormActivity : Activity() {
                     description.text.toString()
                 )
 
-                Log.i("FormActivity","Item Criado: [$item]")
+                Log.i("FormActivity", "Item Criado: [$item]")
 
                 dao.add(item)
-
-                Snackbar.make(bt, "Dados atualizados com sucesso!", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null)
-                    .show()
 
                 finish()
             }
@@ -70,12 +67,20 @@ class FormActivity : Activity() {
 
         inputEditText.addTextChangedListener(
             object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                 override fun afterTextChanged(s: Editable) {
                     findViewById<ImageView>(R.id.iv_form_avatar).let { iv ->
+                        if(s.toString().isNotValidURL())
+
                         Picasso.get().load(s.toString()).into(iv)
                     }
                 }

@@ -14,9 +14,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
 
-class MainActivity: Activity() {
+class MainActivity : Activity() {
 
     private lateinit var dao: SearchItemsProvider
+    private lateinit var adapter: SearchListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,17 +25,18 @@ class MainActivity: Activity() {
         setContentView(R.layout.activity_main)
 
         loadDependencies()
+        configureSearchPage()
         configureFloatButton()
     }
 
     override fun onResume() {
         super.onResume()
-
-        configureSearchPage()
+        adapter.refresh(dao.load())
     }
 
     private fun loadDependencies() {
         dao = SearchItemsProvider()
+        adapter = SearchListAdapter(context = this, items = dao.load())
     }
 
 
@@ -50,10 +52,7 @@ class MainActivity: Activity() {
 
     private fun configureSearchPage() {
         findViewById<RecyclerView>(R.id.rv_search_items).let { rv ->
-            rv.adapter = SearchListAdapter(
-                context = this,
-                items = dao.load()
-            )
+            rv.adapter = adapter
             rv.layoutManager = LinearLayoutManager(this)
         }
     }

@@ -5,11 +5,7 @@ import com.example.dojo.domain.search.SearchItem
 class SearchItemsProvider {
 
     companion object {
-        private val items: MutableList<SearchItem> = mutableListOf()
-    }
-
-    init {
-        items.addAll(fixtureItems())
+        private val items: MutableList<SearchItem> = fixtureItems()
     }
 
     fun add(item: SearchItem) {
@@ -21,7 +17,7 @@ class SearchItemsProvider {
 
 }
 
-private fun fixtureItems() = listOf(
+private fun fixtureItems() = mutableListOf(
     SearchItem(
         "https://avatars.githubusercontent.com/u/74172618?v=4",
         "Mr. Robot",

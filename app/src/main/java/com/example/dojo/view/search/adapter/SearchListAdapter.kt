@@ -1,7 +1,6 @@
 package com.example.dojo.view.search.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +9,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dojo.R
 import com.example.dojo.domain.search.SearchItem
+import com.example.dojo.domain.search.isNotValidURL
 import com.squareup.picasso.Picasso
 
 class SearchListAdapter(
     private val context: Context,
-    private val items: List<SearchItem>
+    items: List<SearchItem>
 ) : RecyclerView.Adapter<SearchListAdapter.ViewHolder>() {
+
+    private val dataset = items.toMutableList()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(item: SearchItem) {
@@ -24,7 +26,9 @@ class SearchListAdapter(
             val username = itemView.findViewById<TextView>(R.id.tv_username)
             val description = itemView.findViewById<TextView>(R.id.tv_description)
 
-            Picasso.get().load(item.avatarUrl).into(avatar)
+            if (item.avatarUrl.isNullOrBlank() or (item.avatarUrl.isNotValidURL()))
+                Picasso.get().load("https://raw.githubusercontent.com/Volosh1n/github-avatars/master/examples/image.png").into(avatar)
+            else Picasso.get().load(item.avatarUrl).into(avatar)
 
             fullName.text = item.fullName
             username.text = item.username
@@ -51,8 +55,15 @@ class SearchListAdapter(
         holder: ViewHolder,
         position: Int
     ) {
-       holder.bind(items[position])
+       holder.bind(dataset[position])
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = dataset.size
+
+    fun refresh(items: List<SearchItem>) {
+        dataset.clear()
+        dataset.addAll(items)
+
+        notifyItemInserted(dataset.size)
+    }
 }
