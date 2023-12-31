@@ -6,10 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dojo.databinding.ItemSearchResultBinding
 import com.example.dojo.domain.search.SearchItem
-import com.example.dojo.domain.search.isNotValidURL
-import com.squareup.picasso.Picasso
+import com.example.dojo.view.commons.load
 
-private const val DEFAULT_AVATAR_URL = "https://raw.githubusercontent.com/Volosh1n/github-avatars/master/examples/image.png"
 class SearchListAdapter(
     private val context: Context,
     items: List<SearchItem>
@@ -24,12 +22,7 @@ class SearchListAdapter(
         private val description = binding.tvDescription
 
         fun bind(item: SearchItem) {
-            if (item.avatarUrl.isNullOrBlank() or (item.avatarUrl.isNotValidURL()))
-                Picasso.get()
-                    .load(DEFAULT_AVATAR_URL)
-                    .into(avatar)
-            else Picasso.get().load(item.avatarUrl).into(avatar)
-
+            avatar.load(item.avatarUrl)
             fullName.text = item.fullName
             username.text = item.username
             description.text = item.description

@@ -6,11 +6,12 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
+import coil.load
+import com.example.dojo.R
 import com.example.dojo.dao.SearchItemsProvider
 import com.example.dojo.databinding.ActivityFormBinding
 import com.example.dojo.domain.search.SearchItem
-import com.example.dojo.domain.search.isNotValidURL
-import com.squareup.picasso.Picasso
+import com.example.dojo.view.commons.load
 
 
 class FormActivity : Activity() {
@@ -55,7 +56,7 @@ class FormActivity : Activity() {
 
     private fun loadEditTexts(): List<EditText> {
         val avatar = binding.etAvatarUrl
-        val fullName =binding.etFullname
+        val fullName = binding.etFullname
         val username = binding.etUsername
         val description = binding.etDescription
 
@@ -78,10 +79,7 @@ class FormActivity : Activity() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                 override fun afterTextChanged(s: Editable) {
-                    binding.ivFormAvatar.let { iv ->
-                        if (s.toString().isNotValidURL())
-                            Picasso.get().load(s.toString()).into(iv)
-                    }
+                    binding.ivFormAvatar.load(s.toString())
                 }
             })
     }

@@ -15,20 +15,14 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_search_result"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_centerHorizontal="true"
-            android:innerRadius="0dp"
-            android:shape="ring"
-            android:thicknessRatio="1.9"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
             app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="200dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.079">
+            app:layout_constraintBottom_toTopOf="@id/etl_avatar_url">
 
             <ImageView
                 android:id="@+id/iv_form_avatar"
@@ -38,62 +32,103 @@
                 android:src="@drawable/ic_default_avatar" />
         </androidx.cardview.widget.CardView>
 
-        <EditText
-            android:id="@+id/et_avatar_url"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etl_avatar_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:ems="10"
-            android:hint="@string/default_hint_avatar_url"
-            android:inputType="textUri"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="?attr/colorPrimary"
+            app:cursorColor="?attr/colorPrimary"
+            app:hintTextColor="?attr/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/cv_search_result"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cv_search_result"
-            app:layout_constraintVertical_bias="0.132" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/etl_fullname"
+            android:layout_marginTop="10dp"
+            >
 
-        <EditText
-            android:id="@+id/et_fullname"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_avatar_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/default_hint_avatar_url"
+                android:inputType="textUri"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etl_fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:ems="10"
-            android:hint="@string/default_hint_fullname"
-            android:inputType="text"
-            app:layout_constraintTop_toBottomOf="@+id/et_avatar_url"
-            tools:layout_editor_absoluteX="8dp" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="?attr/colorPrimary"
+            app:cursorColor="?attr/colorPrimary"
+            app:hintTextColor="?attr/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/etl_avatar_url"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/etl_username"
+            >
 
-        <EditText
-            android:id="@+id/et_username"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/default_hint_fullname"
+                android:inputType="text"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etl_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:ems="10"
-            android:hint="@string/default_hint_username"
-            android:inputType="text"
-            app:layout_constraintTop_toBottomOf="@+id/et_fullname"
-            tools:layout_editor_absoluteX="8dp" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="?attr/colorPrimary"
+            app:cursorColor="?attr/colorPrimary"
+            app:hintTextColor="?attr/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/etl_fullname"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/etl_description"
+            >
 
-        <EditText
-            android:id="@+id/et_description"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/default_hint_username"
+                android:inputType="text"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etl_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_marginTop="40dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="@string/default_hint_description"
-            android:inputType="textMultiLine"
-            app:layout_constraintTop_toBottomOf="@+id/et_username"
-            tools:layout_editor_absoluteX="16dp" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="?attr/colorPrimary"
+            app:cursorColor="?attr/colorPrimary"
+            app:hintTextColor="?attr/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/etl_username"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:gravity="start|top"
+                android:hint="@string/default_hint_description"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/bt_form_update"
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:layout_marginTop="109dp"
-            android:backgroundTint="@color/design_default_color_primary"
+            android:backgroundTint="?attr/colorPrimary"
             android:text="@string/default_btn_update"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -101,8 +136,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.923"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_description"
+            app:layout_constraintTop_toBottomOf="@+id/etl_description"
             app:layout_constraintVertical_bias="0.491" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

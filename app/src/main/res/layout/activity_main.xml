@@ -18,7 +18,7 @@
         android:hint="@string/hint_search_text_input_layout"
         android:queryHint="@string/hint_search_text_input_layout"
         android:paddingBottom="4dp"
-        android:textColorHint="@color/design_default_color_primary"
+        android:textColorHint="?attr/colorPrimary"
 
         app:defaultQueryHint="@string/hint_search_text_input_layout"
         app:hintAnimationEnabled="false"
@@ -48,7 +48,7 @@
         android:focusable="true"
         android:src="@drawable/ic_add"
         android:tint="@color/white"
-        app:backgroundTint="@color/design_default_color_primary"
+        app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/rv_search_items"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"
