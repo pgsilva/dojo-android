@@ -1,10 +1,7 @@
-name: Minimal Android CI Workflow
+name: Morales Bot - Build, Test And Release APK
 
 on:
   push:
-    branches:
-      - master
-      - main
     tags:
       - 'v*'
 
