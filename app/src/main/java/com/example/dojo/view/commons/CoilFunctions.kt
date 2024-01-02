@@ -7,6 +7,7 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.load
 import com.example.dojo.R
+import com.example.dojo.dao.fixtureCoverImage
 
 fun ImageView.load(url: String? = null) {
     val loader = ImageLoader.Builder(context)
@@ -19,8 +20,8 @@ fun ImageView.load(url: String? = null) {
         }.build()
 
     load(url, loader) {
-        fallback(R.drawable.ic_default_avatar)
-        error(R.drawable.ic_default_avatar)
+        fallback(fixtureCoverImage())
+        error(fixtureCoverImage())
         placeholder(R.drawable.gif_upload_animation)
     }
 }
