@@ -12,11 +12,9 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@main
-        with:
-          fetch-depth: '0'
 
       - name: Bump version and push tag
-        uses: ChloePlanet/github-tag-action@master
+        uses: hennejg/github-tag-action@v4.1.jh1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          release_branches : "main, release.*, hotfix.*"
