@@ -42,7 +42,7 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
 
   github-release:
-    needs: gradle-build
+    needs: apk
     runs-on: ubuntu-latest
 
     steps:
