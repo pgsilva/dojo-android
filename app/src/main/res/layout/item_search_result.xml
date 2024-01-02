@@ -26,11 +26,11 @@
             android:layout_centerHorizontal="true"
             app:cardBackgroundColor="@color/black"
             app:cardCornerRadius="0dp"
+            app:cardElevation="0dp"
             app:layout_constraintBottom_toTopOf="@id/tv_full_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="1.0"
-            app:cardElevation="0dp">
+            app:layout_constraintWidth_percent="1.0">
 
             <ImageView
                 android:id="@+id/iv_avatar"
@@ -42,7 +42,7 @@
 
         <TextView
             android:id="@+id/tv_full_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -54,22 +54,23 @@
             android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_search_result" />
+            app:layout_constraintTop_toBottomOf="@id/cv_search_result"
+            app:layout_constraintEnd_toStartOf="@id/tv_username"/>
 
-        <TextView
+        <com.google.android.material.chip.Chip
             android:id="@+id/tv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLines="1"
+            android:layout_marginEnd="8dp"
             android:text="@string/default_tv_username"
-            android:textAppearance="?attr/textAppearanceBody2"
-            android:textColor="?android:attr/textColorSecondary"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_full_name" />
+            app:chipBackgroundColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/cv_search_result"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_search_result" />
 
         <TextView
             android:id="@+id/tv_description"
@@ -82,7 +83,7 @@
             android:maxLines="3"
             android:text="@string/default_tv_description"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_username" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_full_name" />
 
         <!-- Buttons -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -96,13 +97,12 @@
                 style="?attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/ic_check"
                 android:text="@string/default_finish_task"
+                app:icon="@drawable/ic_check"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
