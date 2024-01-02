@@ -1,15 +1,16 @@
 <resources>
     <string name="app_name">Dojo</string>
-    <string name="title_github_explorer">GitHub Explorer</string>
+    <string name="title_github_explorer">Dojo ToDo List</string>
     <string name="label_description">Encontre detalhes sobre repositórios, usuários ou projetos do GitHub.</string>
-    <string name="hint_search_text_input_layout">Pesquise em todo o Github...</string>
+    <string name="hint_search_text_input_layout">Pesquise em todo o Dojo…</string>
     <string name="default_tv_full_name">Paulo Guilherme</string>
     <string name="default_tv_username">pgsilva</string>
     <string name="default_tv_description">computer science student at USJT full stack developer at @itau, genin since 98’s</string>
     <string name="title_activity_form">FormActivity</string>
-    <string name="default_hint_fullname">nome completo</string>
-    <string name="default_hint_avatar_url">URL avatar</string>
-    <string name="default_hint_username">username</string>
+    <string name="default_hint_fullname">nome</string>
+    <string name="default_hint_avatar_url">URL imagem capa</string>
+    <string name="default_hint_username">objetivo</string>
     <string name="default_hint_description">resumo</string>
     <string name="default_btn_update">Salvar</string>
+    <string name="default_finish_task">Feito</string>
 </resources>
