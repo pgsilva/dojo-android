@@ -9,6 +9,7 @@
     android:theme="@style/Theme.Dojo"
     tools:context=".view.MainActivity">
 
+
     <SearchView
         android:id="@+id/sv_search_input"
         android:layout_width="match_parent"
