@@ -10,7 +10,7 @@ permissions:
   packages: write
 
 jobs:
-  android-setup:
+  android:
     uses: pgsilva/deck-actions/.github/workflows/android-ci-cd.yml@main
     with:
       secrets: inherit
