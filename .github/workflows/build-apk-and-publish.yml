@@ -1,11 +1,11 @@
 name: Morales Bot - Build, Test And Release APK
 
+# Only trigger, when the build workflow succeeded
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - 'v*'
+  workflow_run:
+    workflows: ["Morales Bot - Generate tag"]
+    types:
+      - completed
 
 jobs:
   test:
