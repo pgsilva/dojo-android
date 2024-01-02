@@ -73,8 +73,8 @@ dependencies {
     //Coil
     implementation("io.coil-kt:coil:2.5.0")
     implementation("io.coil-kt:coil-gif:2.5.0")
-
-
+    
+    //Tests
     testImplementation("junit:junit:4.13.2")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

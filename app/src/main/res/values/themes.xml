@@ -13,7 +13,7 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
-        <item name="android:fontFamily">@font/dm_sans_medium</item>
+<!--        <item name="android:fontFamily">@font/dm_sans_medium</item>-->
     </style>
 
 

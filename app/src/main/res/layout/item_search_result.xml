@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,6 +8,7 @@
     android:layout_margin="4dp"
     app:cardCornerRadius="0dp"
     android:theme="@style/Theme.Dojo"
+    style="@style/Theme.Dojo"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,7 +53,8 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/cv_search_result"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+           />
 
         <TextView
             android:id="@+id/tv_username"
@@ -66,7 +67,8 @@
             android:fontFamily="@font/dm_sans_medium"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/cv_search_result"
-            app:layout_constraintTop_toBottomOf="@+id/tv_full_name" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_full_name"
+            />
 
         <TextView
             android:id="@+id/tv_description"
@@ -80,7 +82,8 @@
             android:text="@string/default_tv_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cv_search_result"
-            app:layout_constraintTop_toBottomOf="@+id/tv_username" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_username"
+         />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
