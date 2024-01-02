@@ -2,8 +2,8 @@ name: Morales Bot - Build and Publish APK
 
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - main
 
 permissions:
   contents: write
