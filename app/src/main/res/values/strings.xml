@@ -13,4 +13,5 @@
     <string name="default_hint_description">resumo</string>
     <string name="default_btn_update">Salvar</string>
     <string name="default_finish_task">Feito</string>
+    <string name="default_btn_remove">desistir</string>
 </resources>
