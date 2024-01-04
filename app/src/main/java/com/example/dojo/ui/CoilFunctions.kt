@@ -1,4 +1,4 @@
-package com.example.dojo.view.commons
+package com.example.dojo.ui
 
 import android.os.Build.VERSION.SDK_INT
 import android.widget.ImageView

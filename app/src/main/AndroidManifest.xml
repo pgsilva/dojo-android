@@ -13,16 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dojo"
+        android:screenOrientation="portrait"
         tools:targetApi="31">
 
         <activity
-            android:name=".view.form.FormActivity"
+            android:name=".ui.form.FormActivity"
             android:exported="false"
             android:label="@string/title_activity_form"
             android:theme="@style/Theme.Dojo"/>
 
         <activity
-            android:name=".view.MainActivity"
+            android:name=".ui.search.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
