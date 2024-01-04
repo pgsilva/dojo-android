@@ -20,11 +20,11 @@ class FormViewModel(application: Application) : ViewModel() {
     fun add(item: Task, id: String?) {
         CoroutineScope(Dispatchers.IO).launch {
             if (id != null) repository.upsert(item.copy(id = id))
-            repository.upsert(item)
+            else repository.upsert(item)
         }
     }
 
-    fun load(id: String): Task = repository.get(id)
+    suspend fun load(id: String): Task = repository.get(id)
 
     fun delete(id: String) {
         CoroutineScope(Dispatchers.IO).launch {

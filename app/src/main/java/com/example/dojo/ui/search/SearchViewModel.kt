@@ -10,6 +10,7 @@ import com.example.dojo.core.Task
 import com.example.dojo.core.port.TaskDataManager
 import com.example.dojo.repository.factory.TaskDataManagerFactory
 import com.example.dojo.repository.factory.Type
+import kotlinx.coroutines.flow.Flow
 
 
 class SearchViewModel(application: Application) : ViewModel() {
@@ -17,7 +18,7 @@ class SearchViewModel(application: Application) : ViewModel() {
     private val repository by lazy { loadRepository(application) }
 
 
-    fun loadTodos(): List<Task> {
+    suspend fun loadTodos(): List<Task> {
         return repository.load()
     }
 

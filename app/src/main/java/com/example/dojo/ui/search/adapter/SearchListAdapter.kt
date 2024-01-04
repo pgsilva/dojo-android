@@ -11,11 +11,10 @@ import com.example.dojo.ui.load
 
 class SearchListAdapter(
     private val context: Context,
-    items: List<Task>,
     private val onSelect: (Task?) -> Unit,
 ) : RecyclerView.Adapter<SearchListAdapter.ViewHolder>() {
 
-    private val dataset = items.toMutableList()
+    private val dataset = mutableListOf<Task>()
 
     inner class ViewHolder(private val binding: ItemSearchResultBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -61,7 +60,7 @@ class SearchListAdapter(
         dataset.clear()
         dataset.addAll(items)
 
-        notifyItemInserted(items.size)
+        notifyDataSetChanged()
     }
 
 }

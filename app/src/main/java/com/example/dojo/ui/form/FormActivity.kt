@@ -3,13 +3,16 @@ package com.example.dojo.ui.form
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View.GONE
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.dojo.databinding.ActivityFormBinding
 import com.example.dojo.core.Task
 import com.example.dojo.ui.load
+import kotlinx.coroutines.launch
 
 
 class FormActivity : AppCompatActivity() {
@@ -18,7 +21,7 @@ class FormActivity : AppCompatActivity() {
 
     private val viewModel: FormViewModel by viewModels { FormViewModel.Factory }
 
-    private var id: String? = null
+    private var idTask: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,23 +33,25 @@ class FormActivity : AppCompatActivity() {
     }
 
     private fun verifyDetailAction() {
-        val id = intent.extras?.getString("id")
-        id?.let {
-            this.id = id
-            loadValuesDetail()
+        intent.extras?.getString("id").let { id ->
+            idTask = id
+            Log.i("TODO-APP", "Id Carregado para detalhe: $idTask")
+            id?.let { loadValuesDetail() }
         }
     }
 
     private fun loadValuesDetail() {
-        val todo = viewModel.load(id!!)
-        val (avatar, fullName, username, description) = loadEditTexts()
+        lifecycleScope.launch {
+            val todo = viewModel.load(idTask!!)
+            val (avatar, fullName, username, description) = loadEditTexts()
 
-        avatar.setText(todo.coverImageUrl)
-        fullName.setText(todo.name)
-        username.setText(todo.label)
-        description.setText(todo.description)
+            avatar.setText(todo.coverImageUrl)
+            fullName.setText(todo.name)
+            username.setText(todo.label)
+            description.setText(todo.description)
 
-        binding.ivFormAvatar.load(todo.coverImageUrl)
+            binding.ivFormAvatar.load(todo.coverImageUrl)
+        }
     }
 
     private fun initComponents() {
@@ -57,9 +62,9 @@ class FormActivity : AppCompatActivity() {
     }
 
     private fun configureRemoveButton() {
-        if (this.id == null) binding.btFormRemove.visibility = GONE
+        if (this.idTask == null) binding.btFormRemove.visibility = GONE
         else binding.btFormRemove.setOnClickListener {
-            viewModel.delete(this.id!!)
+            viewModel.delete(this.idTask!!)
             finish()
         }
     }
@@ -74,7 +79,7 @@ class FormActivity : AppCompatActivity() {
                     username.text.toString(),
                     description.text.toString()
                 )
-                viewModel.add(item, id)
+                viewModel.add(item, idTask)
                 finish()
             }
         }

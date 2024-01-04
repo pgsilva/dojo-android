@@ -6,11 +6,16 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dojo.core.Task
 import com.example.dojo.databinding.ActivityMainBinding
 import com.example.dojo.ui.form.FormActivity
 import com.example.dojo.ui.search.adapter.SearchListAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,14 +43,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val content = viewModel.loadTodos()
-        adapter.refresh(content)
+        lifecycleScope.launch {
+            val content = loadTodos()
+            adapter.refresh(content)
+        }
     }
 
 
     private fun initDependencies() {
-        val content = viewModel.loadTodos()
-        adapter = SearchListAdapter(context = this, items = content) { item ->
+        adapter = SearchListAdapter(context = this) { item ->
             item?.let { configureDetailAction(item) }
         }
     }
@@ -75,5 +81,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(this)
         }
     }
+
+    private suspend fun loadTodos() = withContext(Dispatchers.IO) { viewModel.loadTodos() }
 }
 
