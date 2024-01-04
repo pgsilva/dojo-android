@@ -1,33 +1,39 @@
-package com.example.dojo.view.search.adapter
+package com.example.dojo.ui.search.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dojo.databinding.ItemSearchResultBinding
-import com.example.dojo.domain.search.SearchItem
-import com.example.dojo.view.commons.load
+import com.example.dojo.core.Task
+import com.example.dojo.ui.load
 
 class SearchListAdapter(
     private val context: Context,
-    items: List<SearchItem>
+    items: List<Task>,
+    private val onSelect: (Task?) -> Unit,
 ) : RecyclerView.Adapter<SearchListAdapter.ViewHolder>() {
 
     private val dataset = items.toMutableList()
 
-    class ViewHolder(binding: ItemSearchResultBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemSearchResultBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         private val avatar = binding.ivAvatar
         private val fullName = binding.tvFullName
         private val username = binding.tvUsername
         private val description = binding.tvDescription
 
-        fun bind(item: SearchItem) {
-            avatar.load(item.avatarUrl)
-            fullName.text = item.fullName
-            username.text = item.username
+        fun bind(item: Task, onSelect: (Task?) -> Unit) {
+            avatar.load(item.coverImageUrl)
+            fullName.text = item.name
+            username.text = item.label
             description.text = item.description
             description.text = item.description
 
+            binding.root.setOnClickListener {
+                onSelect(item)
+            }
         }
     }
 
@@ -47,14 +53,17 @@ class SearchListAdapter(
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int
-    ) = holder.bind(dataset[position])
+    ) = holder.bind(dataset[position], onSelect)
 
     override fun getItemCount(): Int = dataset.size
 
-    fun refresh(items: List<SearchItem>) {
+    fun refresh(items: List<Task>) {
         dataset.clear()
         dataset.addAll(items)
 
-        notifyItemInserted(dataset.size)
+        notifyItemInserted(items.size)
     }
+
 }
+
+

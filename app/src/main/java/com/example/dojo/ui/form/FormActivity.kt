@@ -1,54 +1,80 @@
-package com.example.dojo.view.form
+package com.example.dojo.ui.form
 
-import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+import android.view.View.GONE
 import android.widget.EditText
-import coil.load
-import com.example.dojo.R
-import com.example.dojo.dao.SearchItemsProvider
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.dojo.databinding.ActivityFormBinding
-import com.example.dojo.domain.search.SearchItem
-import com.example.dojo.view.commons.load
+import com.example.dojo.core.Task
+import com.example.dojo.ui.load
 
 
-class FormActivity : Activity() {
+class FormActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityFormBinding.inflate(layoutInflater) }
 
-    private lateinit var dao: SearchItemsProvider
+    private val viewModel: FormViewModel by viewModels { FormViewModel.Factory }
+
+    private var id: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadDependencies()
-
         setContentView(binding.root)
+        verifyDetailAction()
 
-        configureAvatarLoader()
-        configureUpdateButton()
+        initComponents()
+
     }
 
-    private fun loadDependencies() {
-        dao = SearchItemsProvider()
+    private fun verifyDetailAction() {
+        val id = intent.extras?.getString("id")
+        id?.let {
+            this.id = id
+            loadValuesDetail()
+        }
+    }
+
+    private fun loadValuesDetail() {
+        val todo = viewModel.load(id!!)
+        val (avatar, fullName, username, description) = loadEditTexts()
+
+        avatar.setText(todo.coverImageUrl)
+        fullName.setText(todo.name)
+        username.setText(todo.label)
+        description.setText(todo.description)
+
+        binding.ivFormAvatar.load(todo.coverImageUrl)
+    }
+
+    private fun initComponents() {
+        supportActionBar?.hide()
+        configureAvatarLoader()
+        configureUpdateButton()
+        configureRemoveButton()
+    }
+
+    private fun configureRemoveButton() {
+        if (this.id == null) binding.btFormRemove.visibility = GONE
+        else binding.btFormRemove.setOnClickListener {
+            viewModel.delete(this.id!!)
+            finish()
+        }
     }
 
     private fun configureUpdateButton() {
         binding.btFormUpdate.let { bt ->
             bt.setOnClickListener {
                 val (avatar, fullName, username, description) = loadEditTexts()
-                val item = SearchItem(
+                val item = Task(
                     avatar.text.toString(),
                     fullName.text.toString(),
                     username.text.toString(),
                     description.text.toString()
                 )
-
-                Log.i("FormActivity", "Item Criado: [$item]")
-
-                dao.add(item)
-
+                viewModel.add(item, id)
                 finish()
             }
         }

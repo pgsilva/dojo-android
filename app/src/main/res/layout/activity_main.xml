@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:theme="@style/Theme.Dojo"
-    tools:context=".view.MainActivity">
+    tools:context=".ui.search.MainActivity">
 
 
     <SearchView
@@ -20,7 +20,6 @@
         android:queryHint="@string/hint_search_text_input_layout"
         android:paddingBottom="4dp"
         android:textColorHint="?attr/colorPrimary"
-
         app:defaultQueryHint="@string/hint_search_text_input_layout"
         app:hintAnimationEnabled="false"
         app:hintEnabled="false"
