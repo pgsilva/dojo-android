@@ -12,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.dojo.databinding.ActivityFormBinding
 import com.example.dojo.core.Task
 import com.example.dojo.ui.load
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -41,15 +43,16 @@ class FormActivity : AppCompatActivity() {
 
     private fun loadValuesDetail() {
         lifecycleScope.launch {
-            val todo = viewModel.load(idTask!!)
-            val (avatar, fullName, username, description) = loadEditTexts()
+            viewModel.load(idTask!!).collect { todo ->
+                val (avatar, fullName, username, description) = loadEditTexts()
 
-            avatar.setText(todo.coverImageUrl)
-            fullName.setText(todo.name)
-            username.setText(todo.label)
-            description.setText(todo.description)
+                avatar.setText(todo.coverImageUrl)
+                fullName.setText(todo.name)
+                username.setText(todo.label)
+                description.setText(todo.description)
 
-            binding.ivFormAvatar.load(todo.coverImageUrl)
+                binding.ivFormAvatar.load(todo.coverImageUrl)
+            }
         }
     }
 
@@ -61,12 +64,13 @@ class FormActivity : AppCompatActivity() {
     }
 
     private fun configureRemoveButton() {
-        if (this.idTask == null) binding.btFormRemove.visibility = GONE
+        if (idTask == null) binding.btFormRemove.visibility = GONE
         else binding.btFormRemove.setOnClickListener {
-            viewModel.delete(this.idTask!!)
+            viewModel.delete(idTask!!)
             finish()
         }
     }
+
 
     private fun configureUpdateButton() {
         binding.btFormUpdate.let { bt ->

@@ -10,7 +10,7 @@ interface TaskDataManager {
 
     suspend fun load(): Flow<List<Task>>
 
-    suspend fun get(id: String): Task
+    suspend fun get(id: String): Flow<Task>
 
     suspend fun delete(id: String)
 

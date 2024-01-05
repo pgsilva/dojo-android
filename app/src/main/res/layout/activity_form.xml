@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:theme="@style/Theme.Dojo"
+    android:orientation="vertical"
     tools:context=".ui.form.FormActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout

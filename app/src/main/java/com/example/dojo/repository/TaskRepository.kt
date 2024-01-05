@@ -8,16 +8,11 @@ import com.example.dojo.data.db.TaskDao
 import com.example.dojo.data.toDomain
 import com.example.dojo.data.toEntity
 import com.example.dojo.repository.factory.Type
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.withContext
 
 
-class TaskRepository(
-    private val application: Application
-) : TaskDataManager {
+class TaskRepository(application: Application) : TaskDataManager {
 
     //Bad Practice
     private val db: AppDatabase = AppDatabase(application)
@@ -33,8 +28,8 @@ class TaskRepository(
         }
     }
 
-    override suspend fun get(id: String): Task {
-        return dao.findById(id).toDomain()
+    override suspend fun get(id: String): Flow<Task> {
+        return dao.findById(id).map { it.toDomain() }
     }
 
     override suspend fun delete(id: String) {
