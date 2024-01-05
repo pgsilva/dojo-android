@@ -82,10 +82,9 @@ class SearchListAdapter(
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                if(results != null){
+                if (results != null) {
                     val values = results.values as List<Task>
-                    if (values.isNotEmpty())
-                        refresh(values)
+                    refresh(values)
                 }
                 notifyDataSetChanged()
             }

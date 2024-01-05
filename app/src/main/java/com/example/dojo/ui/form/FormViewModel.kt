@@ -18,9 +18,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class FormViewModel(application: Application) : ViewModel() {
-
-    private val interactor by lazy { FormInteractor(application) }
+class FormViewModel(
+    private val interactor: FormInteractor
+) : ViewModel() {
 
     fun add(item: Task, id: String?) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -28,7 +28,7 @@ class FormViewModel(application: Application) : ViewModel() {
         }
     }
 
-    suspend fun load(id: String): Flow<Task> {
+    suspend fun load(id: String): Flow<Task?> {
         return interactor.load(id)
     }
 
@@ -44,7 +44,10 @@ class FormViewModel(application: Application) : ViewModel() {
             initializer {
                 val application =
                     checkNotNull(this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY])
-                FormViewModel(application)
+
+                val interactor = FormInteractor(application)
+
+                FormViewModel(interactor)
             }
         }
     }

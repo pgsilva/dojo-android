@@ -20,9 +20,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-class SearchViewModel(application: Application) : ViewModel() {
+class SearchViewModel(
+    private val interactor: SearchInteractor
+) : ViewModel() {
 
-    private val interactor by lazy { SearchInteractor(application) }
 
     // This is a mutable state flow that will be used internally in the viewmodel, empty list is given as initial value.
     private val _todosList = MutableStateFlow(emptyList<Task>())
@@ -53,7 +54,9 @@ class SearchViewModel(application: Application) : ViewModel() {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = checkNotNull(this[APPLICATION_KEY])
-                SearchViewModel(application)
+                val interactor = SearchInteractor(application)
+
+                SearchViewModel(interactor)
             }
         }
     }

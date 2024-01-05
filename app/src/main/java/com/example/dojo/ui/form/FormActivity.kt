@@ -44,14 +44,16 @@ class FormActivity : AppCompatActivity() {
     private fun loadValuesDetail() {
         lifecycleScope.launch {
             viewModel.load(idTask!!).collect { todo ->
-                val (avatar, fullName, username, description) = loadEditTexts()
+                todo?.let {
+                    val (avatar, fullName, username, description) = loadEditTexts()
 
-                avatar.setText(todo.coverImageUrl)
-                fullName.setText(todo.name)
-                username.setText(todo.label)
-                description.setText(todo.description)
+                    avatar.setText(todo.coverImageUrl)
+                    fullName.setText(todo.name)
+                    username.setText(todo.label)
+                    description.setText(todo.description)
 
-                binding.ivFormAvatar.load(todo.coverImageUrl)
+                    binding.ivFormAvatar.load(todo.coverImageUrl)
+                }
             }
         }
     }
@@ -66,7 +68,7 @@ class FormActivity : AppCompatActivity() {
     private fun configureRemoveButton() {
         if (idTask == null) binding.btFormRemove.visibility = GONE
         else binding.btFormRemove.setOnClickListener {
-            viewModel.delete(idTask!!)
+            viewModel.delete(this.idTask!!)
             finish()
         }
     }

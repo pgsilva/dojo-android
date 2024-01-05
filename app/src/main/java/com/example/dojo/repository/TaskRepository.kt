@@ -28,8 +28,8 @@ class TaskRepository(application: Application) : TaskDataManager {
         }
     }
 
-    override suspend fun get(id: String): Flow<Task> {
-        return dao.findById(id).map { it.toDomain() }
+    override suspend fun get(id: String): Flow<Task?> {
+        return dao.findById(id).map { it?.toDomain() }
     }
 
     override suspend fun delete(id: String) {

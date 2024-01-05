@@ -6,6 +6,7 @@ import com.example.dojo.repository.factory.Type
 import com.example.dojo.repository.factory.loadRepository
 import kotlinx.coroutines.flow.Flow
 
+
 class FormInteractor(
     private val application: Application
 ) {
@@ -19,7 +20,7 @@ class FormInteractor(
         else repository.upsert(item)
     }
 
-    suspend fun load(id: String): Flow<Task> {
+    suspend fun load(id: String): Flow<Task?> {
         return repository.get(id)
     }
 
