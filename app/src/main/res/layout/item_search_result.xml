@@ -50,9 +50,9 @@
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/tv_username"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_search_result"
-            app:layout_constraintEnd_toStartOf="@id/tv_username"/>
+            app:layout_constraintTop_toBottomOf="@id/cv_search_result" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/tv_username"
@@ -91,6 +91,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_description">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/bt_list_done"
                 style="?attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -6,25 +6,26 @@ import androidx.room.Upsert
 import com.example.dojo.data.db.entity.TaskEntity
 import com.example.dojo.core.Task
 import com.example.dojo.data.db.entity.TABLE_NAME_TASK
+import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
 @Dao
 interface TaskDao {
 
     @Query("SELECT * FROM $TABLE_NAME_TASK")
-    fun findAll(): List<TaskEntity>
+    fun findAll(): Flow<List<TaskEntity>>
 
     @Query("SELECT * FROM $TABLE_NAME_TASK WHERE id = :taskId")
-    fun findById(taskId: String): TaskEntity
+    suspend fun findById(taskId: String): TaskEntity
 
     @Query("DELETE FROM $TABLE_NAME_TASK WHERE id = :taskId")
-    fun delete(taskId: String)
+    suspend fun delete(taskId: String)
 
     @Upsert
-    fun update(taskEntity: TaskEntity)
+    suspend fun update(taskEntity: TaskEntity)
 
     @Query("DELETE FROM $TABLE_NAME_TASK")
-    fun deleteAll()
+    suspend fun deleteAll()
 
 }
 

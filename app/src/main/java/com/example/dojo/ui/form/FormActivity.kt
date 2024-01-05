@@ -35,7 +35,6 @@ class FormActivity : AppCompatActivity() {
     private fun verifyDetailAction() {
         intent.extras?.getString("id").let { id ->
             idTask = id
-            Log.i("TODO-APP", "Id Carregado para detalhe: $idTask")
             id?.let { loadValuesDetail() }
         }
     }

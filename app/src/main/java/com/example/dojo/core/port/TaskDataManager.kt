@@ -8,7 +8,7 @@ interface TaskDataManager {
 
     fun originFlow(): Type
 
-    suspend fun load(): List<Task>
+    suspend fun load(): Flow<List<Task>>
 
     suspend fun get(id: String): Task
 

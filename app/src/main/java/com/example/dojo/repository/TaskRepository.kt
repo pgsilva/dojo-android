@@ -9,6 +9,9 @@ import com.example.dojo.data.toDomain
 import com.example.dojo.data.toEntity
 import com.example.dojo.repository.factory.Type
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.withContext
 
 
@@ -23,37 +26,28 @@ class TaskRepository(
 
     override fun originFlow(): Type = Type.TODO
 
-    override suspend fun load(): List<Task> {
-        return withContext(Dispatchers.IO) {
-            val taskEntities = dao.findAll()
-            taskEntities.map { it.toDomain() }
+    override suspend fun load(): Flow<List<Task>> {
+        return dao.findAll().map { list ->
+            //parser method
+            list.map { it.toDomain() }
         }
     }
 
     override suspend fun get(id: String): Task {
-        return withContext(Dispatchers.IO) {
-            dao.findById(id).toDomain()
-        }
+        return dao.findById(id).toDomain()
     }
 
     override suspend fun delete(id: String) {
-        withContext(Dispatchers.IO) {
-            dao.delete(id)
-        }
+        dao.delete(id)
     }
 
     override suspend fun upsert(task: Task) {
-        withContext(Dispatchers.IO) {
-            val entity = task.toEntity()
-            dao.update(entity)
-        }
-
+        val entity = task.toEntity()
+        dao.update(entity)
     }
 
     override suspend fun destroy() {
-        withContext(Dispatchers.IO) {
-            dao.deleteAll()
-        }
+        dao.deleteAll()
     }
 
 
