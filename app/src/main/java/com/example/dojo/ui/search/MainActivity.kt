@@ -2,6 +2,8 @@ package com.example.dojo.ui.search
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -37,11 +39,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         configureSearchPage()
         configureFloatButton()
-        configureDoneButton()
-    }
-
-    private fun configureDoneButton() {
-
+        configureSearchInput()
     }
 
     private fun initObservables() {
@@ -53,11 +51,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initDependencies() {
-        adapter = SearchListAdapter(context = this) { item ->
-            item?.let {
-                configureDetailAction(item)
-            }
-        }
+        adapter = SearchListAdapter(
+            this,
+            onDetailSelect = {
+                it?.let { configureDetailAction(it) }
+            },
+            onDoneSelect = {
+                it?.let { configureDoneButton(it) }
+            })
     }
 
 
@@ -86,6 +87,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun loadTodos() = withContext(Dispatchers.IO) { viewModel.loadTodos() }
+    private fun configureDoneButton(item: Task) {
+        Toast.makeText(this, "Parabéns, você é top!", Toast.LENGTH_LONG).show()
+        viewModel.done(item.id)
+    }
+
+    private fun configureSearchInput() {
+        binding.svSearchInput.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query.isNullOrBlank())
+                    initObservables()
+                else
+                    adapter.filter.filter(query)
+
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrBlank())
+                    initObservables()
+                else
+                    adapter.filter.filter(newText)
+
+                return false
+            }
+        })
+    }
+
 }
 

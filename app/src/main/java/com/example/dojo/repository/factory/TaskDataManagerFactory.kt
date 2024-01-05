@@ -31,3 +31,8 @@ class TaskDataManagerFactory(implementations: Set<TaskDataManager>) {
         }
     }
 }
+
+fun loadRepository(application: Application, type: () -> Type): TaskDataManager {
+    val factory = TaskDataManagerFactory.factory(application)
+    return factory.of(type())
+}
