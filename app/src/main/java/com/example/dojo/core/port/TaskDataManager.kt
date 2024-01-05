@@ -2,19 +2,20 @@ package com.example.dojo.core.port
 
 import com.example.dojo.core.Task
 import com.example.dojo.repository.factory.Type
+import kotlinx.coroutines.flow.Flow
 
 interface TaskDataManager {
 
     fun originFlow(): Type
 
-    fun load(): List<Task>
+    suspend fun load(): Flow<List<Task>>
 
-    fun get(id: String): Task
+    suspend fun get(id: String): Task
 
-    fun delete(id: String)
+    suspend fun delete(id: String)
 
-    fun upsert(task: Task)
+    suspend fun upsert(task: Task)
 
-    fun destroy()
+    suspend fun destroy()
 
 }

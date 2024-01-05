@@ -2,15 +2,17 @@ package com.example.dojo.ui.search
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dojo.core.Task
 import com.example.dojo.databinding.ActivityMainBinding
 import com.example.dojo.ui.form.FormActivity
 import com.example.dojo.ui.search.adapter.SearchListAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,25 +30,33 @@ class MainActivity : AppCompatActivity() {
 
         initDependencies()
         initComponents()
+        initObservables()
     }
 
     private fun initComponents() {
         supportActionBar?.hide()
         configureSearchPage()
         configureFloatButton()
+        configureDoneButton()
     }
 
-    override fun onResume() {
-        super.onResume()
-        val content = viewModel.loadTodos()
-        adapter.refresh(content)
+    private fun configureDoneButton() {
+
     }
 
+    private fun initObservables() {
+        lifecycleScope.launch {
+            viewModel.todosList.collect {
+                adapter.refresh(it)
+            }
+        }
+    }
 
     private fun initDependencies() {
-        val content = viewModel.loadTodos()
-        adapter = SearchListAdapter(context = this, items = content) { item ->
-            item?.let { configureDetailAction(item) }
+        adapter = SearchListAdapter(context = this) { item ->
+            item?.let {
+                configureDetailAction(item)
+            }
         }
     }
 
@@ -75,5 +85,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(this)
         }
     }
+
+    private suspend fun loadTodos() = withContext(Dispatchers.IO) { viewModel.loadTodos() }
 }
 
